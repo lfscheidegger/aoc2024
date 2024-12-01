@@ -1,3 +1,9 @@
+# Holds the cookie
+session
+
+# Cached input files
+cache*.txt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
