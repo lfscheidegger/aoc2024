@@ -1,33 +1,41 @@
+import sys
 from collections import defaultdict
-from aoc_api import get_input, submit
+
 
 def part1():
-    lines = get_input(1)
-    lefts = map(
-        lambda line: int(line.split()[0].strip()),
-        sorted(lines, key=lambda line: int(line.split()[0].strip())))
-    rights = map(
-        lambda line: int(line.split()[1].strip()),
-        sorted(lines, key=lambda line: int(line.split()[1].strip())))
+    left, right = [], []
+    for line in sys.stdin:
+        x, y = line.split()
+        x = int(x)
+        y = int(y)
+        left.append(x)
+        right.append(y)
 
-    result = sum(map(lambda x: abs(x[0] - x[1]), zip(lefts, rights)))
+    left = sorted(left)
+    right  = sorted(right)
 
-    submit(day=1, level=1, answer=result, really=True)
+    result = 0
+    for i in range(len(left)):
+        result += abs(right[i] - left[i])
+
+    return result
 
 
 def part2():
-    lines = get_input(1)
-
-    lefts = map(lambda line: int(line.split()[0].strip()), lines)
-    rights = map(lambda line: int(line.split()[1].strip()), lines)
-    counts = defaultdict(int)
-    for entry in rights:
-        counts[entry] += 1
+    left, right = [], []
+    for line in sys.stdin:
+        x, y = line.split()
+        x = int(x)
+        y = int(y)
+        left.append(x)
+        right.append(y)    
 
     result = 0
-    for entry in lefts:
-        result += entry * counts[entry]
+    for left_number in left:
+        count = len(list(filter(lambda x: x == left_number, right)))
+        result += left_number * count
 
-    submit(day=1, level=2, answer=result, really=True)
+    return result
 
-part2()
+
+print(part2())
